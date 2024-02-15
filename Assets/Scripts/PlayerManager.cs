@@ -8,8 +8,6 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] Animator _playerAnimator;
 
-    private float _playerSpeed = 1000f;
-
     void Start()
     {
 
@@ -20,7 +18,7 @@ public class PlayerManager : MonoBehaviour
         float _horizontalMovement = Input.GetAxisRaw("Horizontal");
         float _verticalMovement = Input.GetAxisRaw("Vertical");
 
-        _playerRB.velocity = new Vector2(_horizontalMovement, _verticalMovement) * Time.deltaTime * _playerSpeed;
+        _playerRB.velocity = new Vector2(_horizontalMovement, _verticalMovement);
 
         _playerAnimator.SetFloat("MovementX", _playerRB.velocity.x);
         _playerAnimator.SetFloat("MovementY", _playerRB.velocity.y);
