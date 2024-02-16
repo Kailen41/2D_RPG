@@ -8,9 +8,29 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] Animator _playerAnimator;
 
+    private float _playerSpeed = 7f;
+
+    public static PlayerManager instance;
+
+    public string transitionName;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else 
+        {
+            instance = this;
+        }
+            
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     void Start()
     {
-
+        
     }
 
     void Update()
@@ -18,7 +38,7 @@ public class PlayerManager : MonoBehaviour
         float _horizontalMovement = Input.GetAxisRaw("Horizontal");
         float _verticalMovement = Input.GetAxisRaw("Vertical");
 
-        _playerRB.velocity = new Vector2(_horizontalMovement, _verticalMovement);
+        _playerRB.velocity = new Vector2(_horizontalMovement, _verticalMovement) * _playerSpeed;
 
         _playerAnimator.SetFloat("MovementX", _playerRB.velocity.x);
         _playerAnimator.SetFloat("MovementY", _playerRB.velocity.y);
