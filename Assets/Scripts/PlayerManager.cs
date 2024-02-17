@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -8,7 +9,12 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] Animator _playerAnimator;
 
+    [SerializeField] Tilemap _tilemap;
+
     private float _playerSpeed = 7f;
+
+    private Vector3 _bottomLeftEdge;
+    private Vector3 _topRightEdge;
 
     public static PlayerManager instance;
 
@@ -30,7 +36,8 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        
+        _bottomLeftEdge = _tilemap.localBounds.min + new Vector3(0.5f, 1f, 0f);
+        _topRightEdge = _tilemap.localBounds.max + new Vector3(-0.5f, -1f, 0f); ;
     }
 
     void Update()
@@ -48,5 +55,9 @@ public class PlayerManager : MonoBehaviour
             _playerAnimator.SetFloat("LastX", _horizontalMovement);
             _playerAnimator.SetFloat("LastY", _verticalMovement);
         }
+
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, _bottomLeftEdge.x, _topRightEdge.x), 
+            Mathf.Clamp(transform.position.y, _bottomLeftEdge.y, _topRightEdge.y), 
+            Mathf.Clamp(transform.position.z, _bottomLeftEdge.z, _topRightEdge.z));
     }
 }
