@@ -6521,7 +6521,7 @@ GameObject:
   - component: {fileID: 4152766805247021332}
   - component: {fileID: 2182768829361335248}
   m_Layer: 0
-  m_Name: New Palette
+  m_Name: FirstTown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

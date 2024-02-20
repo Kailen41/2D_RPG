@@ -8,22 +8,22 @@ public class AreaExit : MonoBehaviour
     [SerializeField] string _sceneToLoad;
     [SerializeField] string _areaTransitionName;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerManager.instance.transitionName = _areaTransitionName;
-            SceneManager.LoadScene(_sceneToLoad);
+
+            CanvasManager.instance.FadeImage();
+
+            StartCoroutine(LoadSceneCoroutine());
         }
+    }
+
+    IEnumerator LoadSceneCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+
+        SceneManager.LoadScene(_sceneToLoad);
     }
 }
